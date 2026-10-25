@@ -1,3 +1,11 @@
+# VMAUB CLOUD 服务与政策站点
+
+本仓库的 Paymenter 配套政策文档位于 **[paymenter-docs](./paymenter-docs/README.md)**，包含服务条款、隐私政策、退款政策、禁止行为及服务终止规则。
+
+在 Cloudflare Pages 中选择根目录 `paymenter-docs`，构建命令 `pnpm install --frozen-lockfile && pnpm build`，输出目录 `.vitepress/dist`；Node.js、pnpm 和其他完整设置见该目录的部署说明。
+
+---
+
 # VitePress 📝💨
 
 [![test](https://github.com/vuejs/vitepress/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/vuejs/vitepress/actions/workflows/test.yml)
