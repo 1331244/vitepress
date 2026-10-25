@@ -1,6 +1,48 @@
 # VMAUB CLOUD 服务与政策文档站
 
-此目录是可独立构建的 VitePress 静态站点。仓库根目录仍是上游 VitePress 源码；部署本政策站时，请把项目根目录设为 `paymenter-docs`，不要构建仓库根目录的上游文档。
+此目录是可独立构建的 VitePress 静态站点，支持 Cloudflare Workers 静态资源及 Cloudflare Pages。仓库根目录仍是上游 VitePress 源码，默认的根目录 `pnpm build` 不会生成本政策站。
+
+## Cloudflare Workers 部署（已有 Workers 项目使用此方案）
+
+如果部署日志出现 `Executing user deploy command: npx wrangler deploy`，说明正在使用 Workers 构建。进入该项目的 **设置 → 构建**，选择下面一种目录配置，不要混用两种命令。
+
+### 方案 A：根目录保持仓库根目录
+
+适合已经创建项目、不方便修改根目录的情况：
+
+| 项目 | 设置 |
+| --- | --- |
+| 生产分支 | `main` |
+| 根目录 | 保持仓库根目录，留空或 `/` |
+| 构建命令 | `cd paymenter-docs && pnpm install --frozen-lockfile && pnpm build` |
+| 部署命令 | `cd paymenter-docs && pnpm deploy:worker` |
+| 非生产分支部署命令（如果启用） | `cd paymenter-docs && pnpm exec wrangler versions upload --config wrangler.jsonc` |
+| 构建变量 | `NODE_VERSION=24`、`SKIP_DEPENDENCY_INSTALL=1` |
+
+构建命令和部署命令是分别执行的，因此两处都必须切换到 `paymenter-docs`。pnpm 版本由本目录 `package.json` 中的 `packageManager` 固定为 `11.25.0`。
+
+### 方案 B：根目录设为 `paymenter-docs`
+
+| 项目 | 设置 |
+| --- | --- |
+| 根目录 | `paymenter-docs` |
+| 构建命令 | `pnpm install --frozen-lockfile && pnpm build` |
+| 部署命令 | `pnpm deploy:worker` |
+| 非生产分支部署命令（如果启用） | `pnpm exec wrangler versions upload --config wrangler.jsonc` |
+| 构建变量 | `NODE_VERSION=24`、`SKIP_DEPENDENCY_INSTALL=1` |
+
+`wrangler.jsonc` 会将 `.vitepress/dist` 作为静态资源发布，不需要后端入口脚本。Workers 项目不需要单独填写 Pages 的“输出目录”。配置中的 Worker 名称为 `vitepress`；如你的项目使用其他名称，应同步修改该字段。
+
+本地无上传检查：
+
+```sh
+pnpm build
+pnpm check:worker
+```
+
+`check:worker` 是 dry-run，不会向 Cloudflare 发布。实际上传由 Cloudflare 构建环境内的授权完成，不要把 API Token 或账户密钥写进仓库或政策页面。
+
+官方参考：[Workers 静态资源](https://developers.cloudflare.com/workers/static-assets/get-started/)、[Wrangler 资源配置](https://developers.cloudflare.com/workers/wrangler/configuration/#assets)、[构建变量](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/#environment-variables)。
 
 ## Cloudflare Pages 部署
 
@@ -17,7 +59,7 @@
 
 这里显式安装本目录的锁定依赖，避免 Cloudflare 自动安装仓库根目录中的框架开发依赖。此目录有独立的 `pnpm-workspace.yaml`，不加入上游源码工作区。
 
-构建完成后，在 Pages 项目中绑定自己的文档域名。站点不写死 `pages.dev` 地址，不需要后端、数据库、Paymenter 密钥或 GitHub Token。
+构建完成后，在 Pages 项目中绑定自己的文档域名。站点不写死托管域名，不需要后端、数据库、Paymenter 密钥或 GitHub Token。
 
 官方参考：[VitePress 部署到 Pages](https://developers.cloudflare.com/pages/framework-guides/deploy-a-vitepress-site/)、[构建镜像与版本变量](https://developers.cloudflare.com/pages/configuration/build-image/)。
 
