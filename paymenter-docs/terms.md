@@ -5,7 +5,7 @@ description: VMAUB CLOUD 的购买、服务可用性、数据风险与使用规�
 
 # 服务条款
 
-更新日期：2026 年 10 月 26 日
+更新时间：2026-10-26 16:17:41（北京时间，UTC+08:00）
 
 本条款适用于通过 [vmaub.com](https://vmaub.com) 购买和使用的全部 VMAUB CLOUD 服务。付款前请阅读本条款及[退款政策](./refund.md)、[禁止行为](./acceptable-use.md)和[服务终止规则](./termination.md)。
 
