@@ -1,6 +1,6 @@
 # VMAUB CLOUD 服务与政策站点
 
-本仓库的 Paymenter 配套政策文档位于 **[paymenter-docs](./paymenter-docs/README.md)**，包含服务条款、隐私政策、退款政策、禁止行为及服务终止规则。
+本仓库的 Paymenter 配套政策文档位于 **[paymenter-docs](./paymenter-docs/README.md)**，包含服务条款、退款政策、禁止行为及服务终止规则。
 
 支持 Cloudflare Workers 和 Pages。已有 Workers 项目可以保持仓库根目录，构建命令使用 `cd paymenter-docs && pnpm install --frozen-lockfile && pnpm build`，部署命令使用 `cd paymenter-docs && pnpm deploy:worker`。Pages 的输出目录为 `.vitepress/dist`，请将根目录设为 `paymenter-docs`。完整设置见该目录的部署说明。
 

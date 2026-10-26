@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   lang: 'zh-CN',
   title: 'VMAUB CLOUD 服务与政策',
-  description: 'VMAUB CLOUD 云服务的服务条款、隐私政策、退款政策、禁止行为及服务终止规则。',
+  description: 'VMAUB CLOUD 服务条款、退款政策、禁止行为及服务终止规则。',
   cleanUrls: true,
   srcExclude: ['README.md'],
   head: [
@@ -14,7 +14,6 @@ export default defineConfig({
     siteTitle: 'VMAUB CLOUD · 服务与政策',
     nav: [
       { text: '服务条款', link: '/terms' },
-      { text: '隐私政策', link: '/privacy' },
       { text: '返回用户中心', link: 'https://vmaub.com/dashboard' }
     ],
     sidebar: [
@@ -23,7 +22,6 @@ export default defineConfig({
         items: [
           { text: '阅读指引', link: '/' },
           { text: '服务条款', link: '/terms' },
-          { text: '隐私政策', link: '/privacy' },
           { text: '退款政策', link: '/refund' },
           { text: '禁止行为', link: '/acceptable-use' },
           { text: '服务终止', link: '/termination' }
